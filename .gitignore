@@ -1,1 +1,4 @@
 node_modules
+datafile.log
+log.log
+npm-debug.log

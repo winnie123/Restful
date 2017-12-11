@@ -1,0 +1,8 @@
+
+let authHandler = ()=>{
+    //
+};
+
+export {
+    authHandler
+}

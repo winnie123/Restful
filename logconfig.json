@@ -1,0 +1,36 @@
+{
+    "appenders": {
+        "console": {
+            "type": "console"
+        },
+        "file": {
+            "type": "file",
+            "filename": "log.log",
+            "maxLogSize": 104857500,
+            "numBackups": 5,
+            "compress": true,
+            "encoding": "utf-8",
+            "flags": "w+"
+        },
+        "dateFile": {
+            "type": "dateFile",
+            "filename": "datafile.log",
+            "pattern": "yyyy-MM-dd-hh",
+            "compress": true
+        }
+    },
+    "categories": {
+        "default": {
+            "appenders": ["console"],
+            "level": "debug"
+        },
+        "info": {
+            "appenders": ["file"],
+            "level": "info"
+        },
+        "error": {
+            "appenders": ["file"],
+            "level": "error"
+        }
+    }
+}
