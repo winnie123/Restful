@@ -13,27 +13,27 @@ export class AssetRepository extends BaseRepository {
     super(dirPath, fileName);
   }
 
-  public getAssets(condition: AssetCondition): Promise<AssetModel[]> {
+  public getAssets(condition?: AssetCondition): Promise<AssetModel[]> {
     return this.query(undefined)
       .then(res => {
         let startDate =
-          (condition.usedDate && condition.usedDate[0]) || undefined;
+          (condition.asset.usedDate && condition.asset.usedDate[0]) || undefined;
         let endDate =
-          (condition.usedDate && condition.usedDate[1]) || undefined;
+          (condition.asset.usedDate && condition.asset.usedDate[1]) || undefined;
         return res.filter(item => {
           let flag = true;
           flag =
-            (flag && !condition.assetId) ||
-            (condition.assetId && item.assetId.indexOf(condition.assetId) >= 0);
+            (flag && !condition.asset.assetId) ||
+            (condition.asset.assetId && item.assetId.indexOf(condition.asset.assetId) >= 0);
           flag =
-            (flag && !condition.name) ||
-            (condition.name && item.name.indexOf(condition.name) >= 0);
+            (flag && !condition.asset.name) ||
+            (condition.asset.name && item.name.indexOf(condition.asset.name) >= 0);
           flag =
-            (flag && !condition.categoryName) ||
-            (condition.categoryName &&
-              item.categoryName === condition.categoryName);
+            (flag && !condition.asset.category.categoryName) ||
+            (condition.asset.category.categoryName &&
+              item.categoryName === condition.asset.category.categoryName);
           flag =
-            (flag && !condition.usedDate) ||
+            (flag && !condition.asset.usedDate) ||
             (Util.isDate(item.usedDate) &&
               new Date(item.usedDate.replace(/-/g, "/")) <= new Date(endDate) &&
               new Date(item.usedDate.replace(/-/g, "/")) >=
@@ -55,9 +55,13 @@ export class AssetRepository extends BaseRepository {
   public getAssetDetail(condition: AssetCondition): Promise<AssetModel> {
     return this.queryInFile().then(res => {
       return res.filter((item: AssetModel) => {
-        return item.assetId === condition.assetId;
+        return item.assetId === condition.asset.assetId;
       })[0];
     });
+  }
+
+  public createAsset(condition:AssetCondition):Promise<boolean>{
+
   }
 
   //   public query(param: AssetModel): Promise<AssetModel[]> {

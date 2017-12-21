@@ -1,8 +1,6 @@
-export type AssetCondition ={
-    assetId : string;
-    name : string;
-    categoryName : string;
-    usedDate : string[];
-    startNum : number;
-    size : number;
+import { AssetModel } from '../model/asset';
+export type AssetCondition = {
+    asset?: AssetModel;
+    startNum?: number;
+    size?: number;
 }
